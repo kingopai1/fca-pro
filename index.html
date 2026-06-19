@@ -1005,7 +1005,7 @@ var FCASync={
   pull:function(tok, full, firstRun){
     var self=this; self.pollCount++;
     var doDeletes=full||firstRun||(self.pollCount%4===0);
-    var since=(full||firstRun||!self.lastPullIso)?null:self.lastPullIso;
+    var since=(full||firstRun||doDeletes||!self.lastPullIso)?null:self.lastPullIso;
     var jobs=FCA_SYNC_ENTITIES.map(function(e){
       var url=FCA_SB_URL+"/rest/v1/"+e+"?select=id,data,updated_at";
       if(since) url+="&updated_at=gt."+encodeURIComponent(since);
